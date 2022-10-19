@@ -1,6 +1,8 @@
 package Project.src;
 
 import java.nio.ByteBuffer;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 
 public class HandShake {
     private final String header = "P2PFILESHARINGPROJ";
@@ -42,6 +44,6 @@ public class HandShake {
 
     public static void main(String[] args) {
         HandShake temp = new HandShake(1234);
-        System.out.println(temp.getMessage());
+        System.out.println(Arrays.toString(temp.getMessage()));
     }
 }
