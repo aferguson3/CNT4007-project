@@ -43,9 +43,4 @@ public class HandShake {
 
         return msg;
     }
-
-    public static void main(String[] args) {
-        HandShake temp = new HandShake(0xFFDDEECC);
-        System.out.println(Arrays.toString(temp.getMessage()));
-    }
 }
