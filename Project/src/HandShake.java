@@ -25,7 +25,6 @@ public class HandShake {
     public byte[] getMessage() {
         byte[] msg = new byte[32];
         byte[] header =  this.header.getBytes();
-        byte[] peerIdBytes = ByteBuffer.allocate(4).putInt(this.peerID).array();
 
         int paddingStartIndex = this.header.length();
         int peerIDStartIndex = this.header.length() + this.paddingLength;
@@ -36,14 +35,17 @@ public class HandShake {
         for (int i=paddingStartIndex; i< paddingStartIndex + this.paddingLength; i++) {
             msg[i] = 0x0;
         }
-        for (int i = peerIDStartIndex; i < peerIDStartIndex + 4; i++) {
-            msg[i] = peerIdBytes[i - peerIDStartIndex];
-        }
+        // convert to unsigned Int from msg
+        msg[peerIDStartIndex] = (byte) ((byte) (this.peerID >> 24) & 0xFF);
+        msg[peerIDStartIndex + 1] = (byte) ((byte) (this.peerID >> 16) & 0xFF);
+        msg[peerIDStartIndex + 2] = (byte) ((byte) (this.peerID >> 8) & 0xFF);
+        msg[peerIDStartIndex + 3] = (byte) ((byte) (this.peerID >> 0) & 0xFF);
+
         return msg;
     }
 
     public static void main(String[] args) {
-        HandShake temp = new HandShake(1234);
+        HandShake temp = new HandShake(0xFFDDEECC);
         System.out.println(Arrays.toString(temp.getMessage()));
     }
 }
