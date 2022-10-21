@@ -1,15 +1,17 @@
 package Project.src;
 
+import Project.src.models.CommonProps;
+
 import java.util.ArrayList;
 
 public class Peer {
-    CommonProperties commonProps;
+    CommonProps commonProps;
     ArrayList<Integer> preferredNeighbors;
     private int optimisticNeighbor;
     // setup socket info
 
-    public Peer(CommonProperties commonProperties, ArrayList<Integer> preferredNeighbors, int optimisticNeighbor) {
-        this.commonProps = commonProperties;
+    public Peer(CommonProps commonProps, ArrayList<Integer> preferredNeighbors, int optimisticNeighbor) {
+        this.commonProps = commonProps;
         this.preferredNeighbors = preferredNeighbors;
         this.optimisticNeighbor = optimisticNeighbor;
     }
