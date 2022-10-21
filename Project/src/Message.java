@@ -3,8 +3,8 @@ package Project.src;
 import java.util.ArrayList;
 
 public class Message {
-    private int msgLength;
-    private byte msgType;
+    private final int msgLength;
+    private final byte msgType;
     byte[] msgPayload;
 
     static final byte CHOKE = 0;
