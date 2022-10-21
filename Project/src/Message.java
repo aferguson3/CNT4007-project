@@ -1,5 +1,8 @@
 package Project.src;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+
 public class Message {
     int msgLength;
     char msgType;
@@ -34,21 +37,70 @@ public class Message {
     public int getMessagePayload() {
         return msgPayload;
     }
-    class Choke extends Message {
-        public Choke() {
+
+    public class ChokeMsg extends Message {
+        public void Choke() {
             this.msgType = CHOKE;
 
             this.msgLength = 0;
 
-            this.msgPayload = 0;
+            this.msgPayload = NO_PAYLOAD;
 
         }
+    }
 
-        public void sendmsg()
-        {
-            HandShake.getMessage();
+    public class Unchoke extends Message{
+        public void Unchoke(){
+            this.msgLength = 0;
+            this.msgType = UNCHOKE;
+            this.msgPayload = NO_PAYLOAD;
         }
 
     }
+
+   public class Interested extends Message{
+        public void Interested(){
+            this.msgLength = 0;
+            this.msgType = INTERESTED;
+            this.msgPayload = NO_PAYLOAD;
+        }
+
+
+   }
+
+   public class NotInterested extends Message{
+        public void NotInterested(){
+            this.msgLength = 0;
+            this.msgType = NOT_INTERESTED;
+            this.msgPayload = NO_PAYLOAD;
+        }
+
+   }
+
+   public class Have extends Message{
+
+        public void Have(){
+            this.msgType = HAVE;
+
+        }
+   }
+
+   public class Bitfield extends Message{
+        public void Bitfield(){
+            this.msgType = BITFIELD;
+        }
+   }
+
+   public class Request extends Message{
+        public void Request(){
+            this.msgType = REQUEST;
+        }
+   }
+
+   public class Piece extends Message{
+        public void Piece(){
+            this.msgType = PIECE;
+        }
+   }
 
 }
