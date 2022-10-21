@@ -1,4 +1,4 @@
-package Project.src;
+package Project.src.models;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;

@@ -68,16 +68,20 @@ request and piece
 	* peer A might not receive piece if peer B has new preferred neighbors and peer A is choked
 	
 Implementation Specifics
-* all peer processes read the commong.cfg
-* peer info specified in peerinfo.cfg in format: [peer ID][hostname][listening port][has file or not]
+* all peer processes read the commong.cfg (metainfo file)
+* when peer starts, reads from the common.cfg ands sets up variables
 	* each line is a peer
 * all exes and config files needed must be in cwd, but peer specific files should be in 'peer_[peerID]'
 
+peerInfo.cfg
+* each line reps a peer.
+[peerID] [hostname] [listen port] [hasFile]
 
-
-			
-	
-		
+scope
+program peerProcess peerID runs
+pP creates new peer class and setups the common prop for the peer
+a peer should make TCP connections to all peers that started before it
+peer terminates when all peers have downloaded the file
 		
 
  
