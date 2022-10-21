@@ -1,6 +1,6 @@
 # Default ignored files
 /shelf/
-/workspace.xml
+/.idea/workspace.xml
 ##############################
 ## Java
 ##############################
@@ -85,3 +85,4 @@ nb-configuration.xml
 ## OS X
 ##############################
 .DS_Store
+/.idea/
