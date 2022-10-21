@@ -38,8 +38,8 @@ public class Message {
         return msgPayload;
     }
 
-    public class ChokeMsg extends Message {
-        public void Choke() {
+    public class Choke extends Message {
+        public Choke() {
             this.msgType = CHOKE;
 
             this.msgLength = 0;
@@ -50,7 +50,7 @@ public class Message {
     }
 
     public class Unchoke extends Message{
-        public void Unchoke(){
+        public Unchoke(){
             this.msgLength = 0;
             this.msgType = UNCHOKE;
             this.msgPayload = NO_PAYLOAD;
@@ -59,7 +59,7 @@ public class Message {
     }
 
    public class Interested extends Message{
-        public void Interested(){
+        public Interested(){
             this.msgLength = 0;
             this.msgType = INTERESTED;
             this.msgPayload = NO_PAYLOAD;
@@ -69,7 +69,7 @@ public class Message {
    }
 
    public class NotInterested extends Message{
-        public void NotInterested(){
+        public NotInterested(){
             this.msgLength = 0;
             this.msgType = NOT_INTERESTED;
             this.msgPayload = NO_PAYLOAD;
@@ -79,28 +79,29 @@ public class Message {
 
    public class Have extends Message{
 
-        public void Have(){
+        public Have(){
             this.msgType = HAVE;
 
         }
    }
 
    public class Bitfield extends Message{
-        public void Bitfield(){
+        public Bitfield(){
             this.msgType = BITFIELD;
         }
    }
 
    public class Request extends Message{
-        public void Request(){
+        public Request(){
             this.msgType = REQUEST;
         }
    }
 
    public class Piece extends Message{
-        public void Piece(){
+        public Piece(){
             this.msgType = PIECE;
         }
    }
+
 
 }
