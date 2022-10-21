@@ -1,4 +1,4 @@
 package Project.src;
 
-public class Main {
+public class Tracker {
 }
