@@ -1,56 +1,54 @@
 package Project.src;
 
-import java.util.ArrayList;
-
 public class Message {
-    private int msgLength;
-    private byte msgType;
-    byte[] msgPayload;
+    int msgLength;
+    char msgType;
+    int msgPayload;
 
-    static final byte CHOKE = 0;
-    static final byte UNCHOKE = 1;
-    static final byte INTERESTED = 2;
-    static final byte NOT_INTERESTED = 3;
-    static final byte HAVE = 4;
-    static final byte BITFIELD = 5;
-    static final byte REQUEST = 6;
-    static final byte PIECE = 7;
+    public final char NO_PAYLOAD = 0xFF;
+    public final char CHOKE = 0;
+    public final char UNCHOKE = 1;
+    public final char INTERESTED = 2;
+    public final char NOT_INTERESTED = 3;
+    public final char HAVE = 4;
+    public final char BITFIELD = 5;
+    public final char REQUEST = 6;
+    public final char PIECE = 7;
+    public Message()
+    {
 
-    public Message(int msgLength, byte msgType, byte[] payload) {
+    }
+    public Message(int msgLength, char msgType) {
         this.msgLength = msgLength;
         this.msgType = msgType;
-        this.msgPayload = payload;
     }
-    public byte getMsgType() {
+
+    public char getMessageType() {
         return msgType;
     }
-    public byte[] getMsgPayload() {
+
+    public int getMessageLength() {
+        return msgLength;
+    }
+
+    public int getMessagePayload() {
         return msgPayload;
     }
-    private int validateMsg()  {
-        // -1: invalid msg, 0: valid msg
-        switch (msgType) {
-            case CHOKE:
-            case UNCHOKE:
-            case INTERESTED:
-            case NOT_INTERESTED:
-                if (msgPayload.length != 0) {
-                    return -1;
-                }
-            case HAVE:
-                if (msgPayload.length != 4) {
-                    return  -1;
-                }
-                break;
-            case REQUEST:
-                if (msgPayload.length != 4) {
-                    return  -1;
-                }
-            default:
-                //bitfield and request aren't validated
-                break;
+    class Choke extends Message {
+        public Choke() {
+            this.msgType = CHOKE;
+
+            this.msgLength = 0;
+
+            this.msgPayload = 0;
+
         }
-        return 0;
+
+        public void sendmsg()
+        {
+            HandShake.getMessage();
+        }
+
     }
 
 }
