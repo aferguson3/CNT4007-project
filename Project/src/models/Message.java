@@ -1,12 +1,14 @@
-package Project.src;
+package Project.src.models;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 
 public class Message {
+
     int msgLength;
     char msgType;
     int msgPayload;
+
 
     public final char NO_PAYLOAD = 0xFF;
     public final char CHOKE = 0;
