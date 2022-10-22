@@ -39,7 +39,32 @@ public class Message {
     public int getMessagePayload() {
         return msgPayload;
     }
-
+    
+    private int validateMsg()  {
+        // -1: invalid msg, 0: valid msg
+        switch (msgType) {
+            case CHOKE:
+            case UNCHOKE:
+            case INTERESTED:
+            case NOT_INTERESTED:
+                if (msgPayload.length != 0) {
+                    return -1;
+                }
+            case HAVE:
+                if (msgPayload.length != 4) {
+                    return  -1;
+                }
+                break;
+            case REQUEST:
+                if (msgPayload.length != 4) {
+                    return  -1;
+                }
+            default:
+                //bitfield and request aren't validated
+                break;
+        }
+        return 0;
+     }
     public class Choke extends Message {
         public Choke() {
             this.msgType = CHOKE;
