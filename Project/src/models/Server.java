@@ -1,3 +1,5 @@
+package Project.src.models;
+
 import java.net.*;
 import java.io.*;
 import java.nio.*;
@@ -15,7 +17,7 @@ public class Server {
         	try {
             		while(true) {
                 		new Handler(listener.accept(),clientNum).start();
-				System.out.println("Client "  + clientNum + " is connected!");
+				System.out.println("Project.src.models.Client "  + clientNum + " is connected!");
 				clientNum++;
             			}
         	} finally {
@@ -65,7 +67,7 @@ public class Server {
 				}
 		}
 		catch(IOException ioException){
-			System.out.println("Disconnect with Client " + no);
+			System.out.println("Disconnect with Project.src.models.Client " + no);
 		}
 		finally{
 			//Close connections
@@ -75,7 +77,7 @@ public class Server {
 				connection.close();
 			}
 			catch(IOException ioException){
-				System.out.println("Disconnect with Client " + no);
+				System.out.println("Disconnect with Project.src.models.Client " + no);
 			}
 		}
 	}
@@ -86,7 +88,7 @@ public class Server {
 		try{
 			out.writeObject(msg);
 			out.flush();
-			System.out.println("Send message: " + msg + " to Client " + no);
+			System.out.println("Send message: " + msg + " to Project.src.models.Client " + no);
 		}
 		catch(IOException ioException){
 			ioException.printStackTrace();
