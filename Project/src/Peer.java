@@ -1,7 +1,5 @@
 package Project.src;
 
-<<<<<<< HEAD
-
 import java.io.File;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

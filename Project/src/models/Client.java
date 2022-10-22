@@ -1,8 +1,7 @@
+package Project.src.models;
+
 import java.net.*;
 import java.io.*;
-import java.nio.*;
-import java.nio.channels.*;
-import java.util.*;
 
 public class Client {
 	Socket requestSocket;           //socket connect to the server
