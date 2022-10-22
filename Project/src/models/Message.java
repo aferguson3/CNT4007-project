@@ -1,8 +1,5 @@
 package Project.src.models;
 
-import java.io.DataOutputStream;
-import java.io.IOException;
-
 public class Message {
 
     //This is the 3 parts to the message
@@ -55,11 +52,6 @@ public class Message {
         return msgPayload;
     }
 
-    //validate the message
-    private int validateMsg()
-    {
-
-
     /*
     private int validateMsg()  {
         // -1: invalid msg, 0: valid msg
@@ -106,10 +98,7 @@ public class Message {
         return 0;
     }
     */
-    public class Choke extends Message {
-        public Choke() {
 
-     }
 
     public class Choke extends Message
     {
