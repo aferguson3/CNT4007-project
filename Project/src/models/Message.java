@@ -1,32 +1,45 @@
 package Project.src.models;
 
-import java.util.ArrayList;
+import java.io.DataOutputStream;
+import java.io.IOException;
 
 public class Message {
-    private final int msgLength;
-    private final byte msgType;
-    byte[] msgPayload;
 
-    static final byte CHOKE = 0;
-    static final byte UNCHOKE = 1;
-    static final byte INTERESTED = 2;
-    static final byte NOT_INTERESTED = 3;
-    static final byte HAVE = 4;
-    static final byte BITFIELD = 5;
-    static final byte REQUEST = 6;
-    static final byte PIECE = 7;
+    int msgLength;
+    char msgType;
+    int msgPayload;
 
-    public Message(int msgLength, byte msgType, byte[] payload) {
+
+    public final char NO_PAYLOAD = 0xFF;
+    public final char CHOKE = 0;
+    public final char UNCHOKE = 1;
+    public final char INTERESTED = 2;
+    public final char NOT_INTERESTED = 3;
+    public final char HAVE = 4;
+    public final char BITFIELD = 5;
+    public final char REQUEST = 6;
+    public final char PIECE = 7;
+    public Message()
+    {
+
+    }
+    public Message(int msgLength, char msgType) {
         this.msgLength = msgLength;
         this.msgType = msgType;
-        this.msgPayload = payload;
     }
-    public byte getMsgType() {
+
+    public char getMessageType() {
         return msgType;
     }
-    public byte[] getMsgPayload() {
+
+    public int getMessageLength() {
+        return msgLength;
+    }
+
+    public int getMessagePayload() {
         return msgPayload;
     }
+    
     private int validateMsg()  {
         // -1: invalid msg, 0: valid msg
         switch (msgType) {
@@ -51,6 +64,71 @@ public class Message {
                 break;
         }
         return 0;
+     }
+    public class Choke extends Message {
+        public Choke() {
+            this.msgType = CHOKE;
+
+            this.msgLength = 0;
+
+            this.msgPayload = NO_PAYLOAD;
+
+        }
     }
+
+    public class Unchoke extends Message{
+        public Unchoke(){
+            this.msgLength = 0;
+            this.msgType = UNCHOKE;
+            this.msgPayload = NO_PAYLOAD;
+        }
+
+    }
+
+   public class Interested extends Message{
+        public Interested(){
+            this.msgLength = 0;
+            this.msgType = INTERESTED;
+            this.msgPayload = NO_PAYLOAD;
+        }
+
+
+   }
+
+   public class NotInterested extends Message{
+        public NotInterested(){
+            this.msgLength = 0;
+            this.msgType = NOT_INTERESTED;
+            this.msgPayload = NO_PAYLOAD;
+        }
+
+   }
+
+   public class Have extends Message{
+
+        public Have(){
+            this.msgType = HAVE;
+
+        }
+   }
+
+   public class Bitfield extends Message{
+        public Bitfield(){
+            this.msgType = BITFIELD;
+        }
+   }
+
+   public class Request extends Message{
+        public Request(){
+            this.msgType = REQUEST;
+        }
+   }
+
+   public class Piece extends Message{
+        public Piece(){
+            this.msgType = PIECE;
+        }
+   }
+
 
 }
