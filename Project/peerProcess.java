@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
+import java.util.TreeMap;
 
 public class peerProcess {
     final String configFileName = "Common.cfg";
@@ -62,6 +63,11 @@ public class peerProcess {
         return configProps;
     }
 
+    /*
+    public TreeMap intializeTracker() {
+
+    }
+    */
     public static void main(String[] args) throws FileNotFoundException {
         // arg1: peerID
         int peerID = 0;

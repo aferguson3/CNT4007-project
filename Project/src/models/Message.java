@@ -7,8 +7,8 @@ public class Message {
 
     int msgLength;
     char msgType;
+    //byte[] msgPayload;
     int msgPayload;
-
 
     public final char NO_PAYLOAD = 0xFF;
     public final char CHOKE = 0;
@@ -40,6 +40,7 @@ public class Message {
         return msgPayload;
     }
     
+    /*
     private int validateMsg()  {
         // -1: invalid msg, 0: valid msg
         switch (msgType) {
@@ -47,6 +48,7 @@ public class Message {
             case UNCHOKE:
             case INTERESTED:
             case NOT_INTERESTED:
+
                 if (msgPayload.length != 0) {
                     return -1;
                 }
@@ -64,7 +66,8 @@ public class Message {
                 break;
         }
         return 0;
-     }
+    }
+    */
     public class Choke extends Message {
         public Choke() {
             this.msgType = CHOKE;
