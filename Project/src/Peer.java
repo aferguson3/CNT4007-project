@@ -1,6 +1,5 @@
 package Project.src;
 
-<<<<<<< HEAD
 
 import java.io.File;
 import java.util.*;
@@ -39,6 +38,9 @@ public class Peer {
         this.commonProps = commonProps;
         this.preferredNeighbors = preferredNeighbors;
         this.optimisticNeighbor = optimisticNeighbor;
+    }
+
+    public Peer(String arg) {
     }
 
     public void setPreferredNeighbors(ArrayList<Integer> preferredNeighbors) {
