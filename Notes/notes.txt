@@ -1,0 +1,87 @@
+* implemented in TCP
+* mgs in both directions look the same
+* when connection established --> initialize handshake
+
+Handshake msg (32 B):
+	P2PFILESHARINGPROJ: 18B (the header)
+	000...00: 10B
+	peerID: 4B
+	
+actual message:
+	msg_length: 4B (size of msg not including lenght field)
+	msg_type: 1B
+		0: choke --> no payload
+		1: unchoke --> no payload
+		2: interested --> no payload
+		3: not interested --> no payload
+		4: have --> payload contains 4B piece index field
+		5: bitfield --> bitfield is the payload
+			* is sent as the 1st msg when connection is established
+			* each bit reps a peer w/ a corresponing piece (1) or not (0)
+			* 1st byte of bitfield = piece indicies 0-7, from high to low bit
+			* peers that don't have anything make skip a bitfield msg
+		6: request --> payload is a 4B piece index field
+		7: piece --> payload consists of 4B piece index field and content of the piece
+	msg_payload: varys on msg_type
+	
+behavior of peers	
+handshake and bitfield
+~ peer A is trying to connect to peer B
+* after TCP connection established, 
+	1. peer A sends handshake msg to peer B
+	2. peer A rcvs handshake msg from peer B and checks if B is the right neighbor by comparing the expected peer ID w/ peer ID in the handshake header
+	3. peer A sends bitfield msg to B to indicate the file piece it has
+	4. peer B send its bitfield to A, unless it has none
+		a. if A rcvs a bitfield msg from B and peer B has unique pieces to A
+			--> peer A sends 'interested' msg to B
+		b. else --> peer A sends 'not interested' msg to B
+		
+choke and unchoke
+* # of concurrent peer uploads is limited to K preferred neighbors and 1 optimistically unchocked neighbor
+* k is given when program starts and all other neighbors are unchoked
+* peer determines preferred neighbors every p secs
+	* peer A calculates the downloading rate from each of its neighbors during the prev. unchoking interval
+	* peer A picks k interested neighbors w/ the highest rates
+		* if > 2 have the same rate, break the tie randomly
+		* unchokes picked neighbors by sending unchoke msg and expects a request from them
+			* if already unchoked, peer A doesn't send unchock msg to it
+			* all previously unchocked but not selected neighbors will be chocked, except the optimistic neighbor (peer A sends chock msg to them)
+* if peer A has a complete file, it randomly determines preferred among those that are interested
+* every m secs peer A reselects an optimistically unchocked neighbor (peer C) randomly among choked neighbors and sends unchoked msg and expects a request msg back
+	* since peer A is sending to peer C, A may become C's preferred neighbor
+
+interested and not interested
+* if a neighbor has interesting pieces, a peer sends 'interested' msg to neighbor
+* if peer A connects to peer B and rcvs a bitfield, shows that peer B has pieces peer A wants
+	* peer A sends interested msg to peer B
+* if peer A rcvs 'have' from peer C that has a piece not in peer A, peer A sends interested msg to C
+* peers have bitfields of all neighbors that update when they rcv 'have' msgs
+	* if neighbor doesn't have any interesting pieces, peer sends not interested back
+	
+request and piece	
+* when connecition's unchoked by neighbor, peer sends request msg for a unique piece
+* if peer A rcvs unchoke from peer B, peer A selects a needed random piece from peer B (random selection strat)
+	* upon receving peer A's request msg, peer B sends piece msg w/ a piece
+	* peer A sends another request to B when download is done	
+	* continues until peer A is choked or peer B doesn't have wanted pieces by A
+	* the next request msg is sent after the peer receives the piece msg for previous msg
+	* peer A might not receive piece if peer B has new preferred neighbors and peer A is choked
+	
+Implementation Specifics
+* all peer processes read the commong.cfg (metainfo file)
+* when peer starts, reads from the common.cfg ands sets up variables
+	* each line is a peer
+* all exes and config files needed must be in cwd, but peer specific files should be in 'peer_[peerID]'
+
+peerInfo.cfg
+* each line reps a peer.
+[peerID] [hostname] [listen port] [hasFile]
+
+scope
+program peerProcess peerID runs
+pP creates new peer class and setups the common prop for the peer
+a peer should make TCP connections to all peers that started before it
+peer terminates when all peers have downloaded the file
+		
+
+ 
