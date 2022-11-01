@@ -1,17 +1,12 @@
 package Project.src.models;
 
-import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Arrays;
-
-public class HandShake {
+public class Handshake {
     private final String header = "P2PFILESHARINGPROJ";
     private final int paddingLength = 10;
     private int peerID;
     private final int messageSize_bytes = 32;
 
-    public HandShake(int peerID) {
+    public Handshake(int peerID) {
         this.peerID = peerID;
     }
 
@@ -23,7 +18,7 @@ public class HandShake {
         return peerID;
     }
 
-    public byte[] getMessage() {
+    public byte[] getHandshake() {
         byte[] msg = new byte[32];
         byte[] header =  this.header.getBytes();
 

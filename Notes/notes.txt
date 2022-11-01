@@ -28,8 +28,8 @@ behavior of peers
 handshake and bitfield
 ~ peer A is trying to connect to peer B
 * after TCP connection established, 
-	1. peer A sends handshake msg to peer B
-	2. peer A rcvs handshake msg from peer B and checks if B is the right neighbor by comparing the expected peer ID w/ peer ID in the handshake header
+	1. peer A sends handshake msg to peer B and rcvs handshake msg from peer B
+	2. peer A checks if B is the right neighbor by comparing the expected peer ID w/ peer ID in the handshake header
 	3. peer A sends bitfield msg to B to indicate the file piece it has
 	4. peer B send its bitfield to A, unless it has none
 		a. if A rcvs a bitfield msg from B and peer B has unique pieces to A

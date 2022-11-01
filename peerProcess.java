@@ -1,6 +1,7 @@
 package Project;
 
 import Project.src.Peer;
+import Project.src.Tracker;
 import Project.src.models.CommonProps;
 
 import java.io.File;
@@ -12,8 +13,9 @@ import java.util.TreeMap;
 
 public class peerProcess {
     final String configFileName = "Common.cfg";
-    final String trackerFileName = "PeerInfo.cfg";
-    int peerID;
+    Peer peer;
+    Tracker tracker = new Tracker();
+    private int peerID;
 
     public peerProcess(int peerID) {
         this.peerID = peerID;
@@ -56,18 +58,12 @@ public class peerProcess {
             }
         }
         else {
-            System.out.println("Couldn't find Common.cfg");
+            System.out.printf("Couldn't find %s", configFile);
             System.exit(-1);
         }
 
         return configProps;
     }
-
-    /*
-    public TreeMap intializeTracker() {
-
-    }
-    */
 
     public static void main(String[] args) throws FileNotFoundException {
         // arg1: peerID
@@ -91,9 +87,12 @@ public class peerProcess {
         }
 
         peerProcess peerProcess = new peerProcess(peerID);
-        CommonProps configProps = new CommonProps();
-        configProps = peerProcess.initializeConfig(configProps);
-        System.out.println(configProps);
+        CommonProps configProps = peerProcess.initializeConfig(new CommonProps());
+        peerProcess.peer = new Peer(configProps, peerID);
+        peerProcess.tracker.initializeTracker();
+
+
+        System.out.println(peerProcess.tracker.toString());
     }
 }
 
