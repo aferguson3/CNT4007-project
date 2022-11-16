@@ -1,20 +1,17 @@
 package Project;
 
-import Project.src.Peer;
-import Project.src.Tracker;
+import Project.src.RunningPeer;
+import Project.src.PeerInfo;
 import Project.src.models.CommonProps;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 public class peerProcess {
     final String configFileName = "Common.cfg";
-    Peer peer;
-    Tracker tracker = new Tracker();
+    RunningPeer runningPeer;
+    PeerInfo peerInfo = new PeerInfo();
     private int peerID;
 
     public peerProcess(int peerID) {
@@ -22,7 +19,6 @@ public class peerProcess {
     }
 
     public CommonProps initializeConfig(CommonProps configProps) throws FileNotFoundException {
-
         String cwd = System.getProperty("user.dir");
         File configFile = new File(cwd, configFileName);
 
@@ -87,12 +83,9 @@ public class peerProcess {
         }
 
         peerProcess peerProcess = new peerProcess(peerID);
-        CommonProps configProps = peerProcess.initializeConfig(new CommonProps());
-        peerProcess.peer = new Peer(configProps, peerID);
-        peerProcess.tracker.initializeTracker();
+        peerProcess.runningPeer = new RunningPeer(peerProcess.initializeConfig(new CommonProps()), peerID);
+        peerProcess.peerInfo.initializeTracker();
 
-
-        System.out.println(peerProcess.tracker.toString());
     }
 }
 

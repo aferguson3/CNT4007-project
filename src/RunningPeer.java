@@ -1,19 +1,11 @@
 package Project.src;
 
 
-import java.io.File;
-import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.stream.Collectors;
-
 import Project.src.models.CommonProps;
 
 import java.util.ArrayList;
 
-public class Peer {
+public class RunningPeer {
 
     CommonProps commonProps;
     ArrayList<Integer> preferredNeighbors;
@@ -21,7 +13,7 @@ public class Peer {
     // setup socket info
     private int peerID;
 
-    public Peer(CommonProps commonProps, int peerID) {
+    public RunningPeer(CommonProps commonProps, int peerID) {
         this.commonProps = commonProps;
         this.peerID = peerID;
     }
@@ -29,8 +21,8 @@ public class Peer {
     public void setPreferredNeighbors(ArrayList<Integer> preferredNeighbors) {
         this.preferredNeighbors = preferredNeighbors;
     }
-    public void setOptimisticNeighbor(int optimisticNeighbor) {
-        this.optimisticNeighbor = optimisticNeighbor;
+    public void setOptimisticNeighbor(int optNeighborPeerID) {
+        this.optimisticNeighbor = optNeighborPeerID;
     }
 
 
