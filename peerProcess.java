@@ -3,6 +3,7 @@ package Project;
 import Project.src.RunningPeer;
 import Project.src.PeerInfo;
 import Project.src.models.CommonProps;
+import src.RunningPeer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +12,6 @@ import java.util.Scanner;
 public class peerProcess {
     final String configFileName = "Common.cfg";
     RunningPeer runningPeer;
-    PeerInfo peerInfo = new PeerInfo();
     private int peerID;
 
     public peerProcess(int peerID) {
@@ -20,6 +20,7 @@ public class peerProcess {
 
     public CommonProps initializeConfig(CommonProps configProps) throws FileNotFoundException {
         String cwd = System.getProperty("user.dir");
+        System.out.println(cwd);
         File configFile = new File(cwd, configFileName);
 
         if (configFile.exists()) {
@@ -66,7 +67,7 @@ public class peerProcess {
         int peerID = 0;
         switch (args.length) {
             case (0):
-                System.out.println("No arguments provided.");
+                System.out.println("No args given. Provide peerID.");
                 System.exit(-1);
             case (1):
                 try {
@@ -84,7 +85,6 @@ public class peerProcess {
 
         peerProcess peerProcess = new peerProcess(peerID);
         peerProcess.runningPeer = new RunningPeer(peerProcess.initializeConfig(new CommonProps()), peerID);
-        peerProcess.peerInfo.initializeTracker();
 
     }
 }

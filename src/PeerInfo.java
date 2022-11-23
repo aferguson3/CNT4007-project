@@ -33,12 +33,13 @@ public class PeerInfo {
         tracker = new TreeMap<>();
     }
 
-    public void initializeTracker() throws FileNotFoundException {
+    public void initializeTracker() {
         String cwd = System.getProperty("user.dir");
         File trackerFile = new File(cwd, trackerFileName);
+        Scanner myReader;
 
-        if (trackerFile.exists()) {
-            Scanner myReader = new Scanner(trackerFile);
+        try {
+            myReader = new Scanner(trackerFile);
             while (myReader.hasNextLine()) {
                 ArrayList<String> tempValues = new ArrayList<>();
                 String currLine = myReader.nextLine();
@@ -58,10 +59,11 @@ public class PeerInfo {
             }
 
         }
-        else {
+        catch (Exception FileNotFoundException) {
             System.out.printf("Couldn't find %s.", trackerFile);
             System.exit(-1);
         }
+
     }
 
     @Override
